@@ -1,0 +1,107 @@
+==================================
+STUDENT GRADE MAPREDUCE PRACTICAL
+==================================
+
+====================================================
+STEP 1 — START HADOOP
+====================================================
+
+start-all.sh
+
+====================================================
+STEP 2 — CHECK SERVICES
+====================================================
+
+jps
+
+Expected:
+
+NameNode
+DataNode
+SecondaryNameNode
+ResourceManager
+NodeManager
+
+====================================================
+STEP 3 — CREATE CLASSES FOLDER
+====================================================
+
+mkdir classes
+
+
+====================================================
+STEP 4 — COMPILE JAVA FILES
+====================================================
+
+javac -classpath `hadoop classpath` -d classes *.java
+
+
+====================================================
+STEP 5 — CREATE JAR FILE
+====================================================
+
+jar -cvf grades.jar -C classes/ .
+
+
+====================================================
+STEP 6 — CREATE HDFS INPUT FOLDER
+====================================================
+
+hdfs dfs -mkdir /gradeinput
+
+
+====================================================
+STEP 7 — UPLOAD INPUT FILE
+====================================================
+
+hdfs dfs -put input.txt /gradeinput
+
+====================================================
+STEP 8 — CHECK INPUT
+====================================================
+
+hdfs dfs -ls /gradeinput
+
+====================================================
+STEP 10 — RUN MAPREDUCE PROGRAM
+====================================================
+
+hadoop jar grades.jar GradeDriver /gradeinput /gradeoutput
+
+====================================================
+STEP 11 — VIEW OUTPUT
+====================================================
+
+hdfs dfs -cat /gradeoutput/part-00000
+
+
+====================================================
+EXPECTED OUTPUT
+====================================================
+
+Alice	A
+Bob	B
+Charlie	C
+David	D
+Eva	F
+
+
+====================================================
+IF RUNNING AGAIN
+====================================================
+
+Delete old output first:
+
+hdfs dfs -rm -r /gradeoutput
+
+
+Then rerun:
+
+hadoop jar grades.jar GradeDriver /gradeinput /gradeoutput
+
+
+====================================================
+STOP HADOOP
+====================================================
+
+stop-all.sh

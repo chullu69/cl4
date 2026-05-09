@@ -1,0 +1,102 @@
+======================================================================
+CL-4 ASSIGNMENT 4 – MongoDB: Installation & CRUD Operations
+======================================================================
+
+AIM
+Install MongoDB, create databases and collections, and perform CRUD
+(Create, Read, Update, Delete) operations on documents.
+
+WHAT WE USED
+- MongoDB Community Server (local installation) **OR** MongoDB Atlas (free cloud)
+- MongoDB Shell (mongosh) or MongoDB Compass (GUI)
+- Python + pymongo (optional for scripting)
+
+HOW IT WORKS (EXPLANATION)
+MongoDB is a NoSQL document database that stores data in flexible JSON-like
+documents. Instead of tables and rows, it uses collections and documents.
+
+Basic concepts:
+- Database: container for collections.
+- Collection: group of documents (similar to a table).
+- Document: a record stored in BSON (binary JSON) format.
+
+CRUD operations:
+- Insert: adds new documents.
+- Find: retrieves documents (with filters).
+- Update: modifies existing documents.
+- Delete: removes documents.
+
+INSTALLATION STEPS (WINDOWS)
+1. Download MongoDB Community Server from https://www.mongodb.com/try/download/community
+   (choose the MSI installer for Windows).
+2. Run the installer – choose "Complete" setup.
+3. (Optional) Check "Install MongoDB Compass" (GUI tool).
+4. Add the bin folder (e.g., C:\Program Files\MongoDB\Server\7.0\bin) to the system PATH.
+5. Open Command Prompt and start the MongoDB service (or run mongosh directly if using Atlas).
+
+INSTALLATION STEPS (LINUX Ubuntu)
+1. Import public key:
+   wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | sudo apt-key add -
+2. Add repository:
+   echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+3. Update and install:
+   sudo apt update
+   sudo apt install -y mongodb-org
+4. Start the service:
+   sudo systemctl start mongod
+   sudo systemctl status mongod
+
+NO INSTALLATION OPTION – MongoDB Atlas (Free Tier)
+1. Go to https://www.mongodb.com/cloud/atlas/register
+2. Create a free account.
+3. Build a new cluster (choose the free M0 cluster, no credit card needed).
+4. Create a database user (username/password) and whitelist your IP (0.0.0.0/0 for testing).
+5. Connect using MongoDB Shell, Compass, or the "Connect" button in the Atlas UI.
+   You'll get a connection string like:
+   mongosh "mongodb+srv://cluster0.xxxxx.mongodb.net/myFirstDatabase" --username yourUser
+
+DATABASE AND COLLECTION CREATION
+After connecting to the shell (mongosh):
+  > use myNewDatabase
+  > db.myNewCollection.insertOne({name: "John Doe", age: 30})
+This creates the database and collection automatically on first insertion.
+
+CRUD OPERATIONS (EXECUTED IN MONGOSH)
+  // Insert a document
+  > db.myNewCollection.insertOne({name: "Jane Doe", age: 25})
+
+  // Read one document
+  > db.myNewCollection.findOne({name: "John Doe"})
+
+  // Update John's age
+  > db.myNewCollection.updateOne({name: "John Doe"}, {$set: {age: 31}})
+
+  // Delete a document
+  > db.myNewCollection.deleteOne({name: "Bob"})
+
+ORAL QUESTIONS & ANSWERS
+Q1. How do you create a new database in MongoDB?
+A: Use the `use database_name` command in the shell. The database is created when
+   you first insert a document into a collection within it. For example:
+   `use schoolDB` followed by `db.students.insertOne({...})`.
+
+Q2. What are the common data types supported in MongoDB documents?
+A: String, Integer, Double, Boolean, Array, Object, Date, ObjectId, Binary data, null, etc.
+
+Q3. What does CRUD stand for in the context of databases?
+A: Create, Read, Update, Delete. These are the four basic operations for persistent storage.
+
+Q4. What is the difference between insertOne and insertMany?
+A: insertOne inserts a single document, insertMany inserts an array of documents.
+
+Q5. What is the default primary key field in MongoDB?
+A: _id, which is an ObjectId automatically generated if not provided.
+
+Q6. How does MongoDB ensure high availability?
+A: Through replica sets – multiple copies of data across nodes with automatic failover.
+
+VIVA-READY CONCLUSION
+We successfully installed MongoDB (or used Atlas), created a database and collection,
+and performed all CRUD operations. This demonstrates the fundamental document-based
+data management capabilities of MongoDB, a leading NoSQL database.
+======================================================================

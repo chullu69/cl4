@@ -1,0 +1,106 @@
+======================================================================
+EXECUTION GUIDE – Data Clustering using K‑Means (Python)
+======================================================================
+
+PREREQUISITES
+- Python 3 installed.
+- Install required libraries (one‑time):
+  pip install scikit-learn pandas matplotlib numpy
+  (on Linux: pip3 install scikit-learn pandas matplotlib numpy)
+
+HOW TO RUN (Option A – Jupyter Notebook)
+1. Open terminal, navigate to your working folder, and start Jupyter:
+   jupyter notebook
+2. Create a new Python 3 notebook.
+3. Copy each code block below into separate cells and run them (Shift+Enter).
+
+HOW TO RUN (Option B – Plain Python script)
+1. Save the entire code as clustering_kmeans.py.
+2. Run: python clustering_kmeans.py
+   (close the plot window to finish execution)
+
+======================================================================
+COMPLETE PYTHON CODE
+======================================================================
+# Cell 1: Imports and load dataset
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+# Load Iris dataset
+iris = load_iris()
+X = iris.data          # Features: sepal length, sepal width, petal length, petal width
+y_true = iris.target   # True species (not used for clustering, only for comparison)
+feature_names = iris.feature_names
+
+print("Dataset shape:", X.shape)
+print("Features:", feature_names)
+
+# Standardize features (important for K‑Means)
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Cell 2: Determine optimal K using the Elbow Method
+wcss = []
+K_range = range(1, 11)
+for k in K_range:
+    kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
+    kmeans.fit(X_scaled)
+    wcss.append(kmeans.inertia_)
+
+plt.figure(figsize=(8,4))
+plt.plot(K_range, wcss, marker='o', linestyle='--', color='b')
+plt.title('Elbow Method for Optimal K')
+plt.xlabel('Number of Clusters (K)')
+plt.ylabel('WCSS (Within-Cluster Sum of Squares)')
+plt.grid(True)
+plt.show()
+
+# Based on the plot, choose K=3 (the elbow point)
+
+# Cell 3: Apply K‑Means with K=3
+k = 3
+kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
+kmeans.fit(X_scaled)
+labels = kmeans.labels_
+centroids_scaled = kmeans.cluster_centers_
+
+# Transform centroids back to original scale for interpretation
+centroids_original = scaler.inverse_transform(centroids_scaled)
+centroids_df = pd.DataFrame(centroids_original, columns=feature_names)
+print("\nCluster centroids (original scale):")
+print(centroids_df)
+
+# Cell 4: Visualize clusters using first two features (sepal length vs sepal width)
+plt.figure(figsize=(8,6))
+scatter = plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=labels, cmap='viridis', s=50, alpha=0.7)
+plt.scatter(centroids_scaled[:, 0], centroids_scaled[:, 1], marker='X', s=200, c='red', edgecolors='black', label='Centroids')
+plt.title('K-Means Clustering (Iris Dataset)')
+plt.xlabel('Sepal Length (scaled)')
+plt.ylabel('Sepal Width (scaled)')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Cell 5: Compare clusters with true species (optional, not required for clustering)
+# Create a confusion matrix between cluster labels and true species
+from sklearn.metrics import confusion_matrix, adjusted_rand_score
+ari = adjusted_rand_score(y_true, labels)
+print(f"\nAdjusted Rand Index (similarity to true labels): {ari:.2f}")
+print("\nConfusion Matrix (Clusters vs True Species):")
+print(pd.crosstab(labels, y_true, rownames=['Cluster'], colnames=['True Species']))
+======================================================================
+
+EXPECTED OUTPUT
+- An elbow plot showing WCSS decreasing, with a visible "elbow" at K=3.
+- A printed table of cluster centroids (mean measurements per cluster).
+- A scatter plot showing three clusters in different colors with red X's
+  marking the centroids.
+- A high Adjusted Rand Index (~0.73‑0.90), indicating clusters match
+  natural species fairly well.
+- A confusion matrix comparing cluster assignments to true species.
+
+======================================================================

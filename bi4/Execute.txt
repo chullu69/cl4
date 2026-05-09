@@ -1,0 +1,94 @@
+======================================================================
+EXECUTION GUIDE – Data Analysis & Visualization using Advanced Excel
+======================================================================
+Prerequisites:
+ - Microsoft Excel (2016 or later recommended)
+ - The dataset below (copy and paste into Excel)
+
+Dataset (copy the entire block below):
+Month	TVs	Mobile Phones	Laptops	Total
+1/1/2022	145	335	82	562
+2/1/2022	145	362	126	633
+3/1/2022	105	311	95	511
+4/1/2022	171	259	93	523
+5/1/2022	178	277	107	562
+6/1/2022	167	292	145	604
+7/1/2022	200	385	77	662
+8/1/2022	181	388	78	647
+9/1/2022	152	291	83	526
+10/1/2022	143	345	102	590
+11/1/2022	114	399	99	612
+12/1/2022	109	250	101	460
+Total	1810	3894	1188	
+
+(Note: The last row contains totals.)
+
+Steps:
+1. Open a new Excel workbook.
+2. Paste the dataset starting at cell A1. It will fill A1:E14 (including
+   the totals row). Adjust column widths if needed.
+3. Format the header row (bold).
+
+----------------------------------------------------------------------
+BASIC CHARTS
+----------------------------------------------------------------------
+A. Bar Chart
+   - Select range A1:D13 (exclude totals row).
+   - Insert → Charts → Bar → 2‑D Bar → Clustered Bar.
+   - Chart will compare monthly sales of TVs, Mobile Phones, Laptops.
+
+B. Column Chart
+   - Same selection A1:D13.
+   - Insert → Charts → Column → 2‑D Column → Clustered Column.
+
+C. Line Chart
+   - Same selection A1:D13.
+   - Insert → Charts → Line → 2‑D Line → Line with Markers.
+
+D. Pie Chart (Total Sales by Product)
+   - Hold Ctrl and select B1:D1 (headers "TVs", "Mobile Phones", "Laptops").
+   - Then hold Ctrl and select B14:D14 (the totals row).
+   - Insert → Charts → Pie → 2‑D Pie → Pie.
+   - Shows proportion of total sales across the three product categories.
+
+----------------------------------------------------------------------
+ADVANCED CHARTS
+----------------------------------------------------------------------
+E. Scatter Plot (TVs vs. Laptops)
+   - Select range A1:C13 (Month, TVs, Laptops).
+   - Insert → Charts → Scatter → Scatter with Smooth Lines and Markers.
+   - Visualises correlation between TVs and Laptops sold.
+
+F. Waterfall Chart (Monthly Totals)
+   - Hold Ctrl and select A2:A13 (all month cells, excluding header).
+   - Then hold Ctrl and select E2:E13 (all monthly Total values).
+   - Insert → Charts → Waterfall → Waterfall.
+   - Shows the cumulative total across months.
+
+----------------------------------------------------------------------
+CUSTOMIZATION (apply to any chart)
+----------------------------------------------------------------------
+- Add Chart Title:
+  Chart Design → Add Chart Element → Chart Title → Above Chart.
+  Type "Electronic Store Sales 2022".
+
+- Move Legend:
+  Chart Design → Add Chart Element → Legend → Top (or Right).
+
+- Add Data Labels:
+  Chart Design → Add Chart Element → Data Labels → Center (or Above).
+
+- Change Style & Colors:
+  Chart Design → choose a style from the gallery.
+  Chart Design → Change Colors → select a monochromatic palette.
+
+- Add Axis Titles:
+  Chart Design → Add Chart Element → Axis Titles → Primary Horizontal
+  (type "Month") and Primary Vertical (type "Units Sold").
+
+- Format Axis (if needed):
+  Right‑click on axis → Format Axis → adjust scale or number format.
+
+----------------------------------------------------------------------
+Save your workbook as "AdvancedExcel_Visualization.xlsx".
+======================================================================

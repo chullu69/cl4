@@ -1,0 +1,95 @@
+======================================================================
+BI ASSIGNMENT 1 – Import Data from Different Sources (Power BI)
+======================================================================
+
+AIM
+Import data from various sources (Excel, SQL Server, Oracle, OData feeds)
+and load them into Power BI for analysis and reporting.
+
+WHAT WE LEARNED
+- How legacy data resides in different formats and systems.
+- How to use Power BI Desktop’s "Get Data" feature to connect to
+  relational databases, flat files, and online services.
+- How to load and preview data, apply basic transformations, and integrate
+  multiple sources into a single data model.
+
+THEORY (Brief)
+Legacy data is information stored in older formats or systems (RDBMS,
+flat files, XML, web services). Power BI can connect to hundreds of
+data sources and unify them. The "Get Data" wizard allows you to choose
+a source, provide connection details, and select tables/files.
+
+KEY DATA SOURCES COVERED
+1. Excel workbook (Products.xlsx) – direct file import.
+2. OData Feed (Northwind) – web service data.
+3. SQL Server / Oracle – relational databases (connection string).
+
+STEPS (as per practical manual)
+
+Importing from Excel:
+  1. Open Power BI Desktop.
+  2. Go to Home → Get Data → Excel.
+  3. Browse to the Excel file (e.g., Products.xlsx) and click Open.
+  4. In the Navigator, select the table(s) to import and click "Load" or "Edit".
+
+Importing from OData Feed:
+  1. Get Data → OData Feed.
+  2. Paste the URL: http://services.odata.org/V3/Northwind/Northwind.svc/
+  3. Click OK.
+  4. Select the Orders table (or others) and click "Load".
+
+Importing from SQL Server (optional):
+  1. Get Data → SQL Server.
+  2. Fill in the server name and database name.
+  3. Choose authentication (Windows or Database).
+  4. Select tables/views and load.
+
+Importing from Oracle (optional):
+  1. Get Data → Oracle database.
+  2. Enter server (TNS) and credentials.
+  3. Select tables/views.
+
+LOADING INTO TARGET SYSTEM
+  Power BI itself is the target system – the data is loaded into the
+  Power BI data model (in-memory). You can combine tables, create
+  relationships, and build reports.
+
+TRANSFORMING DATA (Power Query Editor)
+  - Remove unnecessary columns, change data types, filter rows.
+  - Merge/append queries.
+
+ORAL QUESTIONS & ANSWERS
+Q1. What is Power BI?
+A: Power BI is a business analytics tool by Microsoft that lets you connect
+   to various data sources, transform data, create interactive visualizations,
+   and share reports.
+
+Q2. How do you import data from an Excel file in Power BI?
+A: Go to Home → Get Data → Excel, browse to the file, select tables/sheets,
+   and click Load. You can also edit the data in Power Query Editor before loading.
+
+Q3. What is an OData feed?
+A: OData (Open Data Protocol) is a standard for building and consuming RESTful
+   APIs. Power BI can connect to OData endpoints to retrieve data.
+
+Q4. How do you connect to SQL Server in Power BI?
+A: Get Data → SQL Server, enter server name, database, authentication mode,
+   and then select the required tables/views.
+
+Q5. Can you import data from Oracle?
+A: Yes, using Get Data → Oracle database, provided you have the Oracle client
+   installed and the connection details.
+
+Q6. What is the Navigator window used for?
+A: It lists all accessible objects (tables, views, sheets) from the chosen
+   data source, allowing you to select and preview them.
+
+Q7. What is Power Query Editor?
+A: It is a data transformation tool embedded in Power BI where you can clean,
+   reshape, and merge data before loading it into the model.
+
+VIVA-READY CONCLUSION
+We successfully imported data from Excel and OData feeds into Power BI,
+demonstrating the ability to connect to heterogeneous data sources and
+consolidate them for analysis. This forms the first step in any BI project.
+======================================================================

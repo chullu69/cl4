@@ -1,0 +1,49 @@
+======================================================================
+EXECUTION GUIDE – Import Data into Power BI
+======================================================================
+
+Prerequisites:
+ - Power BI Desktop installed (free from https://powerbi.microsoft.com/desktop/)
+ - Sample Excel file (you can create a simple one or use Products.xlsx from any tutorial)
+ - Internet connection for OData feed
+
+Steps (Perform one after another)
+
+1. Launch Power BI Desktop.
+
+2. Import Excel data:
+   a. Click the "Get Data" dropdown (Home ribbon) → "Excel".
+   b. Browse to your Excel file → Open.
+   c. In the Navigator, tick the table/sheet you want → click "Load".
+      (Alternatively, click "Transform Data" to open Power Query Editor first.)
+
+3. Import OData (Orders):
+   a. Click "Get Data" → "OData Feed".
+   b. In the URL box, paste:
+      http://services.odata.org/V3/Northwind/Northwind.svc/
+   c. Click OK.
+   d. In Navigator, select the "Orders" table → click "Load".
+
+   You now have both Products and Orders tables in your model.
+
+4. (Optional) Transform data:
+   a. In the Home ribbon, click "Transform Data" to open Power Query Editor.
+   b. You can rename columns, change data types, or remove unneeded rows.
+   c. Click "Close & Apply" to save changes and load into the report.
+
+5. Verify data:
+   a. In the Report view, expand the "Fields" pane on the right.
+      You should see both tables.
+   b. Drag a field from each table onto the canvas to create a quick
+      table visual to confirm the data appears correctly.
+
+6. Save your .pbix file:
+   File → Save → give a name, e.g., "ImportFromSources.pbix".
+
+======================================================================
+TROUBLESHOOTING
+- If you get a firewall error for OData, check that you are online.
+- For SQL Server / Oracle connections, ensure the server is accessible
+  and you have correct credentials. If no server is available, skip them
+  and demonstrate with Excel and OData only.
+======================================================================

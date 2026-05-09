@@ -1,0 +1,69 @@
+======================================================================
+CL-4 ASSIGNMENT 3 – MapReduce Student Grades
+======================================================================
+
+AIM
+Develop a MapReduce program to calculate grades for students based on their scores.
+
+WHAT WE ARE LEARNING
+- How to compute aggregates (average) in MapReduce.
+- How to assign categories (grades) based on numeric values.
+- How MapReduce can be used for educational data processing.
+
+WHAT WE USED
+- Java Hadoop MapReduce (new API)
+- Python for simulation
+- Input data: CSV lines (student_id, score)
+
+HOW IT WORKS
+1. Mapper reads each line, extracts student ID and score, emits (student_id, score).
+2. Framework shuffles and groups all scores by student ID.
+3. Reducer receives (student_id, list of scores), calculates the average,
+   and calls a grading function to assign a letter grade.
+4. Reducer outputs (student_id, grade).
+
+EXAMPLE
+Input lines:
+S1,85
+S1,90
+S2,78
+S2,82
+
+Mapper emits: (S1,85), (S1,90), (S2,78), (S2,82)
+Reducer for S1: average = 87.5 → B
+Reducer for S2: average = 80.0 → B
+Output:
+S1    B
+S2    B
+
+KEY POINTS FOR EXAM
+- Mapper extracts and passes numerical scores.
+- Reducer computes the average and then uses a helper function to map average to grade.
+- The driver sets key/value types accordingly.
+- The program works on large datasets because map and reduce run in parallel.
+
+ORAL QUESTIONS & ANSWERS
+Q1. How do you handle scenarios where the grading criteria need to be adjusted or updated?
+A: Modify the calculateGrade() method in the Reducer. You can change the threshold values
+   or add new grade categories without altering the map phase.
+
+Q2. How do you ensure the correctness and efficiency of the MapReduce program?
+A: - Use a small test dataset and verify against manual calculations.
+   - Check for data skew and adjust partitioning if needed.
+   - Monitor job performance in Hadoop's ResourceManager UI.
+   - Use combiner (optional) to pre-aggregate scores per student on map side.
+
+Q3. What would be the output format of this MapReduce job?
+A: The output is a text file where each line contains the student ID and the assigned grade,
+   separated by a tab (default TextOutputFormat).
+
+Q4. Why is MapReduce suitable for grading large numbers of students?
+A: It processes records in parallel across a cluster, so millions of student records can be
+   graded in minutes. The map and reduce phases are easily scalable.
+
+VIVA-READY CONCLUSION
+We successfully developed a MapReduce program that calculates student grades from score data.
+The Mapper emitted per-score records, and the Reducer aggregated them to compute average
+scores and assign letter grades. This demonstrates how distributed processing can automate
+grading at scale.
+======================================================================

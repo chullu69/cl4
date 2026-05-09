@@ -1,0 +1,42 @@
+======================================================================
+EXECUTION GUIDE – MapReduce Word Frequency
+======================================================================
+
+OPTION A: Hadoop (Real Cluster, Java)
+----------------------------------------------------------------------
+Prerequisites:
+- Hadoop cluster installed and configured (YARN + HDFS)
+- JDK installed
+- Input text file (e.g., input.txt)
+
+Steps:
+1. Save the three Java files: WCMapper.java, WCReducer.java, WCDriver.java
+   in a folder (e.g., ~/WordCount)
+
+2. Compile:
+   cd ~/WordCount
+   javac -classpath $(hadoop classpath) -d . WCMapper.java WCReducer.java WCDriver.java
+
+3. Create JAR:
+   jar cvf wordcount.jar *.class
+
+4. Place input file in HDFS:
+   hdfs dfs -mkdir -p /user/$USER/input
+   hdfs dfs -put input.txt /user/$USER/input
+
+5. Run the job:
+   hdfs dfs -rm -r /user/$USER/output   (remove old output if any)
+   hadoop jar wordcount.jar WCDriver /user/$USER/input /user/$USER/output
+
+6. View results:
+   hdfs dfs -cat /user/$USER/output/part-00000
+
+OPTION B: Python Simulation (No Hadoop)
+----------------------------------------------------------------------
+Prerequisites: Python 3
+1. Save the Python script as wordcount_simulation.py
+2. Create an input text file (e.g., mytext.txt) with some sentences.
+3. Run:
+   python wordcount_simulation.py mytext.txt
+4. The output will show each word and its frequency.
+======================================================================

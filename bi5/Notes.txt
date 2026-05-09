@@ -1,0 +1,70 @@
+======================================================================
+BI ASSIGNMENT 5 – Perform Data Classification (Logistic Regression)
+======================================================================
+
+AIM
+To apply a classification algorithm on a dataset, train a model, and
+predict class labels for new data.
+
+WHAT WE LEARNED
+- What classification is: predicting a target class from input features.
+- How to load a standard dataset (Iris).
+- How to split data into training and test sets.
+- How to train a Logistic Regression classifier.
+- How to evaluate the model using accuracy.
+- How to make predictions on unseen data.
+
+THEORY (SUMMARY)
+Classification is a supervised learning task where the model learns
+from labeled data to assign a category to new observations.
+
+Key terminology:
+- Classifier: algorithm that maps inputs to class labels.
+- Feature: measurable property (e.g., petal length).
+- Binary classification: two possible classes (e.g., Male/Female).
+- Multi‑class classification: more than two classes (e.g., Iris species).
+
+Example used: Iris dataset
+- Features: sepal length, sepal width, petal length, petal width.
+- Target classes: Setosa, Versicolor, Virginica (3 classes).
+
+Algorithm used: Logistic Regression (linear classifier).
+
+Steps performed:
+1. Load the dataset.
+2. Split into training (80%) and testing (20%).
+3. Train the classifier on training data.
+4. Predict on test data.
+5. Compute accuracy.
+
+ORAL QUESTIONS & ANSWERS
+Q1. What is classification in machine learning?
+A: It is the process of predicting a discrete class label for a given
+   input based on a model trained on labelled examples.
+
+Q2. Name three classification algorithms.
+A: Logistic Regression, k‑Nearest Neighbors (k‑NN), Decision Trees,
+   Random Forests, Support Vector Machines (SVM), Naïve Bayes.
+
+Q3. What is the difference between binary and multi‑class classification?
+A: Binary classification has exactly two target classes (e.g., spam/not spam).
+   Multi‑class classification has more than two classes (e.g., iris species).
+
+Q4. Why do we split data into training and test sets?
+A: To evaluate the model on unseen data and avoid overfitting. The test
+   set acts as a proxy for real‑world performance.
+
+Q5. How do you measure the performance of a classifier?
+A: Common metrics include accuracy, precision, recall, F1‑score, and
+   confusion matrix.
+
+Q6. Can you name some real‑world applications of classification?
+A: Email spam detection, disease diagnosis, sentiment analysis, credit
+   scoring, facial recognition, etc.
+
+VIVA-READY CONCLUSION
+We successfully performed a classification task using Logistic Regression
+on the Iris dataset. The model was trained on labelled examples and
+achieved high accuracy on test data, demonstrating the core concepts
+of feature‑based prediction and model evaluation.
+======================================================================

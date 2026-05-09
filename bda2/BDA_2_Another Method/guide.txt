@@ -1,0 +1,124 @@
+===============================
+HADOOP WORDCOUNT PRACTICAL
+===============================
+
+====================================================
+STEP 1 — START HADOOP
+====================================================
+
+start-all.sh
+
+====================================================
+STEP 2 — CHECK HADOOP SERVICES
+====================================================
+
+jps
+
+Expected Output:
+
+NameNode
+DataNode
+SecondaryNameNode
+ResourceManager
+NodeManager
+
+====================================================
+STEP 3 — CREATE CLASSES FOLDER
+====================================================
+
+mkdir classes
+
+
+====================================================
+STEP 4 — COMPILE JAVA FILES
+====================================================
+
+javac -classpath `hadoop classpath` -d classes *.java
+
+
+====================================================
+STEP 5 — CREATE JAR FILE
+====================================================
+
+jar -cvf wordcount.jar -C classes/ .
+
+
+====================================================
+STEP 6 — CREATE HDFS INPUT DIRECTORY
+====================================================
+
+hdfs dfs -mkdir /input
+
+
+====================================================
+STEP 7 — UPLOAD INPUT FILE TO HDFS
+====================================================
+
+hdfs dfs -put input.txt /input
+
+
+====================================================
+STEP 8 — CHECK INPUT FILE IN HDFS
+====================================================
+
+hdfs dfs -ls /input
+
+
+====================================================
+STEP 9 — RUN MAPREDUCE PROGRAM
+====================================================
+
+hadoop jar wordcount.jar WCDriver /input /output
+
+
+====================================================
+STEP 10 — VIEW OUTPUT
+====================================================
+
+hdfs dfs -cat /output/part-00000
+
+
+====================================================
+EXPECTED OUTPUT
+====================================================
+
+analytics 1
+big 3
+data 3
+hadoop 4
+mapreduce 2
+
+
+====================================================
+IF YOU WANT TO RUN AGAIN
+====================================================
+
+Delete previous output first:
+
+hdfs dfs -rm -r /output
+
+
+Then rerun:
+
+hadoop jar wordcount.jar WCDriver /input /output
+
+
+====================================================
+OPTIONAL USEFUL COMMANDS
+====================================================
+
+Check HDFS files:
+
+hdfs dfs -ls /
+
+Check output folder:
+
+hdfs dfs -ls /output
+
+Copy output to local system:
+
+hdfs dfs -get /output
+
+Stop Hadoop:
+
+stop-all.sh

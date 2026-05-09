@@ -1,0 +1,74 @@
+======================================================================
+BI ASSIGNMENT 6 – Perform Data Clustering (K‑Means Algorithm)
+======================================================================
+
+AIM
+To group similar data points into clusters without using predefined labels,
+using the K‑Means clustering algorithm.
+
+WHAT WE LEARNED
+- The difference between supervised (classification) and unsupervised
+  (clustering) learning.
+- How K‑Means works: choose K, initialize centroids, assign points to
+  nearest centroid, update centroids, repeat until stable.
+- How to apply K‑Means on a real dataset (Iris) and interpret the clusters.
+- How to visualize clusters and centroids.
+
+THEORY (SUMMARY)
+Clustering is an unsupervised technique that partitions data so that
+objects within the same cluster are more similar to each other than to
+those in other clusters. No target labels are used.
+
+K‑Means Algorithm Steps:
+1. Decide the number of clusters (K).
+2. Randomly place K centroids.
+3. Assign each data point to the nearest centroid (often using Euclidean
+   distance).
+4. Move each centroid to the mean of the points assigned to it.
+5. Repeat steps 3‑4 until centroids no longer move significantly.
+
+Applications:
+- Customer segmentation
+- Image compression
+- Anomaly detection
+- Document clustering
+
+DATASET USED: Iris flower dataset (4 features, 3 natural species)
+We ignore the true labels during clustering and later compare how well the
+clusters match the known species.
+
+LIBRARIES: pandas, numpy, matplotlib, scikit-learn
+
+ORAL QUESTIONS & ANSWERS
+Q1. What is clustering?
+A: Clustering is an unsupervised machine learning technique that groups
+   similar data points into clusters based on their features, without
+   using pre‑defined labels.
+
+Q2. How does K‑Means work?
+A: It starts with K randomly chosen centroids, assigns points to the
+   nearest centroid, recomputes centroids as the mean of assigned points,
+   and repeats until convergence.
+
+Q3. How do you choose the value of K?
+A: Methods like the Elbow Method (plot WCSS vs. K) or domain knowledge
+   help decide the optimal number of clusters.
+
+Q4. What is the difference between classification and clustering?
+A: Classification is supervised and uses labeled data to predict classes.
+   Clustering is unsupervised and groups data without labels.
+
+Q5. Can K‑Means handle non‑spherical clusters?
+A: No, K‑Means works best for spherical, equally sized clusters. For
+   complex shapes, algorithms like DBSCAN are better.
+
+Q6. What are some real‑world uses of clustering?
+A: Market segmentation, social network analysis, organizing computing
+   clusters, anomaly detection, and recommendation systems.
+
+VIVA-READY CONCLUSION
+We successfully applied the K‑Means clustering algorithm to the Iris
+dataset. The algorithm grouped 150 flowers into 3 clusters based on
+sepal and petal measurements, demonstrating the power of unsupervised
+learning to discover natural groupings in data.
+======================================================================

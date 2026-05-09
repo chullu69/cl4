@@ -1,0 +1,72 @@
+======================================================================
+BI ASSIGNMENT 2 – Data Visualization from ETL Process
+======================================================================
+
+AIM
+To demonstrate the Extract, Transform, Load (ETL) process using Python
+and visualize the resulting data with charts.
+
+WHAT WE LEARNED
+- How to extract data from a flat file (CSV).
+- How to transform data: date conversion, encoding, deriving new columns,
+  data cleansing.
+- How to load the transformed data into a target (DataFrame / CSV).
+- How to create meaningful visualizations (bar, pie, line charts) from
+  the loaded data using matplotlib and seaborn.
+
+THEORY OVERVIEW
+ETL stands for:
+  - **Extract**: Collect data from various sources (CSV, databases, etc.)
+  - **Transform**: Clean, encode, derive, aggregate, join data.
+  - **Load**: Write the processed data into a data warehouse or data mart.
+After the ETL process, data visualization helps analysts and
+stakeholders understand patterns and insights.
+
+TOOLS USED
+- Python (Pandas, NumPy, Matplotlib, Seaborn)
+- Jupyter Notebook
+
+KEY STEPS IN THE CODE
+1. Extract: Created a sample CSV and read it into a DataFrame.
+2. Transform:
+   - Converted string dates to datetime.
+   - Encoded categorical gender values.
+   - Calculated total price.
+   - Extracted month.
+   - Dropped nulls.
+3. Load: Saved the clean DataFrame to a new CSV and kept it in memory.
+4. Visualize:
+   - Bar chart: total sales per product.
+   - Pie chart: orders distribution by month.
+   - Bar chart: average order value by gender.
+   - Line chart: daily sales trend.
+
+ORAL QUESTIONS & ANSWERS
+Q1. What does ETL stand for?
+A: Extract, Transform, Load – the process of moving data from source(s)
+   to a data warehouse after cleansing and reshaping.
+
+Q2. Why is transformation necessary?
+A: Raw data often has inconsistencies, missing values, incompatible formats,
+   or needs enrichment (e.g., derived columns) before analysis.
+
+Q3. Which Python library is used for data manipulation in this practical?
+A: Pandas – it provides DataFrames for handling structured data.
+
+Q4. What visualization libraries did you use?
+A: Matplotlib for core plotting and Seaborn for styling.
+
+Q5. How would you load data into a real data warehouse?
+A: You could use SQLAlchemy to insert DataFrames into a SQL database,
+   or write to a Parquet file for a data lake.
+
+Q6. What is a data mart?
+A: A subset of a data warehouse, focused on a specific business line or
+   department.
+
+VIVA-READY CONCLUSION
+We successfully implemented a full ETL pipeline in Python: extracted
+sales data from a CSV, performed multiple transformations, loaded the
+clean data into a target, and generated four insightful visualizations
+that aid in decision-making.
+======================================================================

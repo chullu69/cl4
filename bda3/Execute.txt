@@ -1,0 +1,51 @@
+======================================================================
+EXECUTION GUIDE – MapReduce Student Grades
+======================================================================
+
+OPTION A: Hadoop (Real Cluster, Java)
+----------------------------------------------------------------------
+Prerequisites:
+- Hadoop cluster running (HDFS + YARN)
+- JDK installed
+- Input file: scores.txt (each line: student_id,score  e.g., S1,85)
+
+Steps:
+1. Save the Java files (GradeMapper.java, GradeReducer.java, GradeDriver.java) in a folder,
+   e.g., ~/StudentGrades
+
+2. Compile:
+   cd ~/StudentGrades
+   javac -classpath $(hadoop classpath) -d . GradeMapper.java GradeReducer.java GradeDriver.java
+
+3. Create JAR:
+   jar cvf grades.jar *.class
+
+4. Upload input file to HDFS:
+   hdfs dfs -mkdir -p /user/$USER/input
+   hdfs dfs -put scores.txt /user/$USER/input
+
+5. Run the job:
+   hdfs dfs -rm -r /user/$USER/output   (remove old output folder if exists)
+   hadoop jar grades.jar GradeDriver /user/$USER/input /user/$USER/output
+
+6. View results:
+   hdfs dfs -cat /user/$USER/output/part-r-00000
+
+Expected output:
+S1    B
+S2    B
+...
+
+OPTION B: Python Simulation (No Hadoop)
+----------------------------------------------------------------------
+Prerequisites: Python 3
+
+1. Save the Python script as grade_simulation.py
+2. Create an input file (e.g., scores.txt) with lines like:
+   S1,85
+   S1,90
+   S2,78
+3. Run:
+   python grade_simulation.py scores.txt
+4. The output shows student ID, average, and grade.
+======================================================================

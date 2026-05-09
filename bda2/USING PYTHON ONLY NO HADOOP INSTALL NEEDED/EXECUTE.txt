@@ -1,0 +1,8 @@
+OPTION B: Python Simulation (No Hadoop)
+----------------------------------------------------------------------
+Prerequisites: Python 3
+1. Save the Python script as wordcount_simulation.py
+2. Create an input text file (e.g., mytext.txt) with some sentences.
+3. Run:
+   python wordcount_simulation.py mytext.txt
+4. The output will show each word and its frequency.

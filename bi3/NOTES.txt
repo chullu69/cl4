@@ -1,0 +1,91 @@
+======================================================================
+BI ASSIGNMENT 3 – ETL Process to Construct a Database
+======================================================================
+
+AIM
+To perform Extraction, Transformation, and Loading (ETL) of data into
+a target database (SQL Server / Power BI Data Model) and understand
+the complete pipeline from raw data to a clean, structured data store.
+
+WHAT WE LEARNED
+- The three phases of ETL: Extract, Transform, Load.
+- How to extract data from various sources (CSV, Excel, OData, etc.)
+- How to apply transformations: select columns, encode values,
+  derive new columns, clean data, expand related tables.
+- How to load the transformed data into a target database (simulated
+  with SQLite / Power BI Data Model).
+- How to use Power BI’s Query Editor for a visual ETL workflow.
+
+THEORY (SUMMARY)
+ETL (Extract – Transform – Load) is the backbone of data warehousing.
+It consolidates data from multiple sources, applies business rules,
+and stores the cleaned data in a destination database.
+
+Extract:
+  - Full Extraction: all data (initial load)
+  - Partial (Delta) Extraction: only changed data
+  - Must not impact source system performance.
+
+Transform:
+  - Selection of columns
+  - Data cleansing (null handling, duplicates)
+  - Encoding / standardization (e.g., Male → M)
+  - Derived values (e.g., LineTotal = UnitPrice * Quantity)
+  - Data type conversions (e.g., DDMMYY → DDMONYYYY)
+  - Merging / joining related data
+
+Load:
+  - Append, refresh, or overwrite data in target.
+  - Enforce constraints, triggers, logging.
+
+ETL IN SQL SERVER (Overview)
+- Use SQL Server Data Tools (SSDT) / Business Intelligence
+  Development Studio (BIDS).
+- Create an Integration Services (SSIS) package.
+- Define Data Flow Tasks: source → transformations → destination.
+
+ETL IN POWER BI
+- Power Query Editor is the ETL tool.
+- Steps: Remove unnecessary columns, expand related tables,
+  add custom calculated columns, rename/reorder fields.
+- The final model (tables with relationships) acts as the "database".
+
+ORAL QUESTIONS & ANSWERS
+Q1. What are the three main phases of ETL?
+A: Extraction (reading data from sources), Transformation (cleaning,
+   mapping, deriving, validating), Loading (writing to the target
+   database or data model).
+
+Q2. What is the difference between Full Extraction and Partial Extraction?
+A: Full extraction copies all data every time (initial load). Partial
+   extraction (delta) only fetches records that have changed since the
+   last extraction, reducing load on source and network.
+
+Q3. Name at least three common transformation operations.
+A: Column selection, data type conversion, encoding, derived columns,
+   aggregating, joining, sorting, null handling.
+
+Q4. How does Power BI handle the ETL process?
+A: Through Power Query Editor. You can remove columns, filter rows,
+   expand nested tables, add custom columns, rename, and set data types.
+   The result is a data model with relationships, which acts as the
+   in-memory database for reporting.
+
+Q5. Why is it important to not affect source system performance during
+    extraction?
+A: Extraction should be non-intrusive; using strategies like reading
+   from replicas, scheduling during off-peak hours, and delta loads
+   ensures the source system remains responsive.
+
+Q6. What is SSIS?
+A: SQL Server Integration Services, Microsoft's platform for building
+   enterprise-level ETL solutions. It uses packages with control flow
+   and data flow tasks.
+
+VIVA-READY CONCLUSION
+We successfully performed an ETL process to construct a database.
+Whether using Python with SQLite or Power BI’s Query Editor, we
+extracted raw data, applied multiple transformations, and loaded the
+cleansed data into a structured target ready for analysis. This
+demonstrates the end-to-end data preparation lifecycle.
+======================================================================

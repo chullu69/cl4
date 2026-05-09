@@ -1,0 +1,72 @@
+======================================================================
+BI ASSIGNMENT 4 – Data Analysis & Visualization with Advanced Excel
+======================================================================
+
+AIM
+To perform data analysis and create various visualizations using
+advanced Excel features (bar, column, line, pie, scatter, waterfall
+charts) and customize them effectively.
+
+WHAT WE LEARNED
+- How to create basic charts (bar, column, line, pie) from a dataset.
+- How to create advanced charts (scatter plot, waterfall chart).
+- How to customize chart elements: titles, legends, data labels, axes,
+  colors, and styles.
+- When to use each chart type for effective data storytelling.
+
+KEY CHART TYPES & USE CASES
+Chart Type    | When to Use
+------------------------------------------------------
+Bar Chart     | Compare categories horizontally; easy ranking.
+Column Chart  | Compare categories vertically; show monthly sales.
+Line Chart    | Show trends over time (e.g., units sold by month).
+Pie Chart     | Show proportions of a whole (e.g., total sales by product).
+Scatter Plot  | Visualize correlation between two numeric variables.
+Waterfall     | Show cumulative effect of positive/negative values on a total.
+
+CUSTOMIZATION OPTIONS
+- Chart Title, Axis Titles, Legend (position on/off).
+- Data Labels (show values directly on chart).
+- Chart Styles & Color Palettes.
+- Axis Scale (min/max), Number Format.
+- Gridlines, Background, Data Series colors.
+
+ORAL QUESTIONS & ANSWERS
+Q1. What is data visualization?
+A: It is the graphical representation of data using charts, graphs, maps,
+   etc., to make complex data easier to understand and identify trends.
+
+Q2. How do you create a bar chart in Excel?
+A: Select the data range (including headers), go to Insert → Charts →
+   Bar → Clustered Bar. The categories appear on the vertical axis.
+
+Q3. What is the difference between a bar chart and a column chart?
+A: In a bar chart, bars are horizontal (categories on y‑axis). In a column
+   chart, bars are vertical (categories on x‑axis). Both compare values.
+
+Q4. When would you use a line chart?
+A: To show data trends over time (e.g., monthly sales) with markers for
+   each data point.
+
+Q5. What is a scatter plot used for?
+A: To examine the relationship or correlation between two numerical
+   variables.
+
+Q6. How can you add data labels to a chart?
+A: Select the chart → Chart Design → Add Chart Element → Data Labels →
+   choose position (e.g., Center, Above).
+
+Q7. How do you change the color scheme of a chart?
+A: Click on the chart → Chart Design → Change Colors → pick a palette.
+
+Q8. What is a waterfall chart?
+A: It shows how an initial value is increased/decreased by a series of
+   intermediate values, reaching a final total. Useful for financial
+   statements.
+
+VIVA-READY CONCLUSION
+We performed data analysis and visualization using advanced Excel. By
+creating bar, column, line, pie, scatter, and waterfall charts, and
+customizing their elements, we effectively communicated sales trends
+and product performance.
+======================================================================

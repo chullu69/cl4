@@ -1,0 +1,113 @@
+======================================================================
+BI ASSIGNMENT 3 – ETL Process to Construct a Database (SQLite + Python)
+======================================================================
+AIM
+  Perform Extraction, Transformation, and Loading (ETL) of data and
+  build a target database (SQLite) using Python.
+
+WHAT YOU WILL DO
+  - Extract data from a CSV file (or generate sample data).
+  - Transform it: clean, convert types, derive new columns.
+  - Load the transformed data into a SQLite database file (sales.db).
+  - Verify the data by querying the database.
+
+PREREQUISITES
+  - Python 3 (check with: python --version)
+  - pip (comes with Python)
+
+INSTALL REQUIRED LIBRARIES (one-time)
+  # pandas for data manipulation, sqlite3 is built-in
+  pip install pandas
+  # OR on Ubuntu:
+  pip3 install pandas
+
+HOW TO RUN (pick one method)
+
+Method A – Plain Python Script (Recommended)
+  1. Create a new file called etl_sqlite.py and paste the code below.
+  2. Open terminal/command prompt in that folder.
+  3. Run:  python etl_sqlite.py
+  4. After execution, a file sales.db will appear in the same folder.
+  5. The script prints "Data loaded successfully!" and shows sample rows.
+
+Method B – Jupyter Notebook
+  1. Open terminal, run: jupyter notebook
+  2. Create a new Python 3 notebook.
+  3. Copy each code block from the script below into separate cells.
+  4. Run cells one by one (Shift+Enter).
+
+
+COMPLETE PYTHON SCRIPT (Copy everything below)
+--------------------------------------------------
+import pandas as pd
+import sqlite3
+
+# ============================================================
+# STEP 1: EXTRACT (Create/Read a CSV file)
+# ============================================================
+# Simulate raw data and save it as a CSV for demonstration
+raw_data = {
+    'OrderID':   [1, 2, 3, 4],
+    'ProductID': [101, 102, 101, 103],
+    'UnitPrice': [100, 200, 100, 300],
+    'Quantity':  [2, 1, 3, 2],
+    'OrderDate': ['2025-01-01', '2025-01-02', '2025-01-02', '2025-01-03'],
+    'Gender':    ['Male', 'Female', 'Female', 'Male']
+}
+df_raw = pd.DataFrame(raw_data)
+df_raw.to_csv('raw_orders.csv', index=False)
+print("1. Raw data written to raw_orders.csv")
+
+# Now extract: read the CSV
+extracted_df = pd.read_csv('raw_orders.csv')
+print("2. Data extracted successfully.")
+print(extracted_df)
+
+# ============================================================
+# STEP 2: TRANSFORM
+# ============================================================
+# a) Convert OrderDate to datetime
+extracted_df['OrderDate'] = pd.to_datetime(extracted_df['OrderDate'])
+
+# b) Encode Gender: Male -> M, Female -> F
+extracted_df['GenderCode'] = extracted_df['Gender'].map({'Male': 'M', 'Female': 'F'})
+
+# c) Derive a new column: LineTotal = UnitPrice * Quantity
+extracted_df['LineTotal'] = extracted_df['UnitPrice'] * extracted_df['Quantity']
+
+# d) Drop the original Gender column (optional)
+extracted_df.drop(columns=['Gender'], inplace=True)
+
+print("\n3. Transformed data:")
+print(extracted_df)
+
+# ============================================================
+# STEP 3: LOAD – Write to SQLite database
+# ============================================================
+conn = sqlite3.connect('sales.db')
+extracted_df.to_sql('Orders', conn, if_exists='replace', index=False)
+print("\n4. Data loaded into table 'Orders' in sales.db")
+
+# ============================================================
+# VERIFY – Read back from the database
+# ============================================================
+df_loaded = pd.read_sql("SELECT * FROM Orders", conn)
+print("\n5. Verification – data from database:")
+print(df_loaded)
+
+conn.close()
+print("\n6. ETL process completed successfully!")
+--------------------------------------------------
+
+EXPECTED OUTPUT
+  - console prints of extracted, transformed, and loaded data.
+  - a new file sales.db appears in the same folder.
+  - no errors.
+
+VIVA-READY CONCLUSION
+  We built a complete ETL pipeline using Python and SQLite. The
+  script extracted raw order data, applied transformations
+  (data type conversion, encoding, derived calculation), and
+  loaded the clean data into a relational database, forming a
+  robust data mart ready for analysis.
+======================================================================

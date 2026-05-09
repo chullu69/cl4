@@ -1,0 +1,13 @@
+OPTION B: Python Simulation (No Hadoop)
+----------------------------------------------------------------------
+Prerequisites: Python 3
+
+1. Save the Python script as grade_simulation.py
+2. Create an input file (e.g., scores.txt) with lines like:
+   S1,85
+   S1,90
+   S2,78
+3. Run:
+   python grade_simulation.py scores.txt
+4. The output shows student ID, average, and grade.
+======================================================================

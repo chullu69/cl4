@@ -1,0 +1,5 @@
+OrderID,ProductID,UnitPrice,Quantity,OrderDate,Gender
+1,101,100,2,2025-01-01,Male
+2,102,200,1,2025-01-02,Female
+3,101,100,3,2025-01-02,Female
+4,103,300,2,2025-01-03,Male

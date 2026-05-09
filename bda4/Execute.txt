@@ -1,0 +1,38 @@
+======================================================================
+EXECUTION GUIDE – MongoDB Local & Atlas, CRUD Commands
+======================================================================
+OPTION A: Local MongoDB Shell (mongosh)
+----------------------------------------------------------------------
+Prerequisites: MongoDB installed (Community Server) and mongosh shell available.
+
+1. Start MongoDB service:
+   Windows: net start MongoDB
+   Linux:   sudo systemctl start mongod
+
+2. Open terminal/command prompt and start the shell:
+   mongosh
+
+3. Inside the shell, run:
+
+   // Create/switch database and insert first doc
+   use myNewDatabase
+   db.myNewCollection.insertOne({name: "John Doe", age: 30})
+
+   // CRUD Operations
+   // Insert
+   db.myNewCollection.insertOne({name: "Jane Doe", age: 25})
+
+   // Read
+   db.myNewCollection.findOne({name: "John Doe"})
+
+   // Update
+   db.myNewCollection.updateOne({name: "John Doe"}, {$set: {age: 31}})
+
+   // Delete
+   db.myNewCollection.deleteOne({name: "Bob"})
+
+   // Verify
+   db.myNewCollection.find().pretty()
+
+4. Take screenshots of each operation output.
+

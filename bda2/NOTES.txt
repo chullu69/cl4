@@ -1,0 +1,70 @@
+======================================================================
+CL-4 ASSIGNMENT 2 – MapReduce Word Frequency
+======================================================================
+
+AIM
+Develop a MapReduce program to calculate the frequency of each word in a given file.
+
+WHAT WE ARE LEARNING
+- How the MapReduce programming model works.
+- The roles of Mapper and Reducer.
+- How Hadoop distributes the computation across a cluster.
+- How to compile, package, and run a Hadoop MapReduce job.
+
+WHAT WE USED
+- Java (for Hadoop MapReduce)
+- Python (for local simulation)
+- Hadoop HDFS and MapReduce framework
+
+HOW IT WORKS
+1. Mapper reads each line of the text file.
+2. Splits the line into words and emits (word, 1) for each word.
+3. Shuffle/Sort phase (automatic in Hadoop) groups all values by key (word).
+4. Reducer receives (word, list of counts) and sums them up.
+5. Final output: (word, total_frequency) for every word in the input file.
+
+EXAMPLE
+Input: "Hello world Hello"
+Mapper output: (Hello,1), (world,1), (Hello,1)
+After shuffle: (Hello, [1,1]), (world, [1])
+Reducer output: (Hello,2), (world,1)
+
+KEY POINTS FOR EXAM
+- Mapper: input = (LongWritable offset, Text line) -> output = (Text word, IntWritable 1)
+- Reducer: input = (Text word, Iterator<IntWritable> counts) -> output = (Text word, IntWritable sum)
+- The framework sorts and groups intermediate pairs automatically.
+- WordCount is the "Hello World" of MapReduce.
+
+ORAL QUESTIONS & ANSWERS
+Q1. What are the key phases in a MapReduce program?
+A: Map, Shuffle/Sort, and Reduce. Map processes input and emits intermediate key-value pairs.
+   Shuffle groups pairs with the same key. Reduce aggregates them.
+
+Q2. How do you handle intermediate key-value pairs between Mapper and Reducer?
+A: Hadoop's framework automatically sorts and groups the map outputs by key before passing them
+   to the reducers. No manual handling is needed; you only define the map and reduce logic.
+
+Q3. What challenges might arise when dealing with very large files in MapReduce?
+A: - Data skew (some keys have huge value lists, overloading a single reducer).
+   - Network traffic during shuffle.
+   - I/O overhead from reading/writing to HDFS.
+   - Fault tolerance (tasks may fail; Hadoop handles retries automatically).
+
+Q4. Can you explain the concept of shuffling and sorting in MapReduce and its relevance here?
+A: Shuffling transfers the map outputs to the correct reducer node, and sorting ensures all values
+   for a key are in order. This is essential for the reducer to process all occurrences of a word
+   together.
+
+Q5. What is the difference between old (mapred) and new (mapreduce) MapReduce APIs?
+A: The old API uses MapReduceBase, OutputCollector, Reporter. The new API uses Context.
+   New API is recommended; this assignment uses the older API for simplicity.
+
+Q6. What is the purpose of the Driver class?
+A: It configures the job (mapper, reducer, input/output paths, types) and submits it to the
+   cluster.
+
+VIVA-READY CONCLUSION
+We successfully developed a MapReduce program that counts word frequencies. The Mapper
+tokenized text and emitted (word,1) pairs; the Reducer summed the counts per word. This
+demonstrates the power of the MapReduce framework for parallel data processing.
+======================================================================

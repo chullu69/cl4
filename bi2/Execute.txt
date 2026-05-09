@@ -1,0 +1,36 @@
+======================================================================
+EXECUTION GUIDE – ETL and Data Visualization
+======================================================================
+
+Prerequisites:
+- Python 3 installed
+- Jupyter Notebook installed
+- Libraries: pandas, numpy, matplotlib, seaborn
+
+INSTALLATION (one-time)
+1. Open terminal/command prompt.
+2. Install Jupyter and required libraries:
+   pip install jupyter pandas numpy matplotlib seaborn
+   (Use pip3 on Linux if needed)
+
+START JUPYTER NOTEBOOK
+1. Navigate to your working folder:
+   cd path\to\your\folder
+2. Launch Jupyter:
+   jupyter notebook
+3. Your browser will open. Click "New" → Python 3 (ipykernel).
+
+RUN THE CODE
+1. In the new notebook, copy each code block from this document
+   into separate cells and run them (Shift+Enter) one by one.
+2. After running all cells, you should see four charts displayed inline.
+
+ALTERNATIVE WITHOUT JUPYTER
+Save the code as a .py file (e.g., etl_visual.py) and run:
+   python etl_visual.py
+(Remove the %matplotlib inline line for plain Python.)
+
+VERIFY RESULTS
+- Check that "loaded_sales_data.csv" is created after the Load step.
+- Ensure charts are displayed without errors.
+======================================================================

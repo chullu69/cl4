@@ -1,0 +1,252 @@
+ASSIGNMENT NO: 03
+Title: Perform the Extraction Transformation and Loading (ETL) process to construct the database in SQL Server / Power BI
+
+============================================================
+PRACTICAL: ETL PROCESS USING POWER BI DESKTOP (STEP-BY-STEP)
+============================================================
+
+OBJECTIVE:
+To perform ETL (Extract, Transform, Load) using Power BI Desktop and construct a simple relational data model.
+
+---
+
+## STEP 1: PREPARE SOURCE DATA FILES
+
+Create two CSV files using Notepad and save them on Desktop.
+
+1. Products.csv
+
+---
+
+ProductID,ProductName,QuantityPerUnit,UnitsInStock
+1,Chai,10 boxes,39
+2,Chang,24 bottles,17
+3,Aniseed Syrup,12 bottles,13
+-----------------------------
+
+2. Orders.csv
+
+---
+
+OrderID,ProductID,UnitPrice,Quantity,ShipCountry
+101,1,18,2,India
+102,2,19,1,USA
+103,3,10,5,UK
+-------------
+
+Save both files.
+
+---
+
+## STEP 2: OPEN POWER BI DESKTOP
+
+1. Launch Power BI Desktop.
+2. On Home tab, click:
+   Home → Get Data → Text/CSV
+
+---
+
+## STEP 3: EXTRACT PRODUCTS DATA
+
+1. Select Products.csv
+2. Click Transform Data
+
+In Power Query Editor:
+
+1. Select:
+   ProductID
+   ProductName
+   QuantityPerUnit
+   UnitsInStock
+2. Right-click → Remove Other Columns
+
+This completes extraction of Products data.
+
+---
+
+## STEP 4: EXTRACT ORDERS DATA
+
+1. In Power Query Editor:
+   Home → New Source → Text/CSV
+2. Select Orders.csv
+3. Click Transform Data
+
+Keep these columns:
+OrderID
+ProductID
+UnitPrice
+Quantity
+ShipCountry
+
+Remove unnecessary columns if any.
+
+---
+
+## STEP 5: TRANSFORM DATA (ADD CUSTOM COLUMN)
+
+In Orders table:
+
+1. Go to Add Column tab
+2. Click Custom Column
+
+New Column Name:
+LineTotal
+
+## Formula:
+
+## [UnitPrice] * [Quantity]
+
+3. Click OK
+
+This creates calculated sales amount.
+
+---
+
+## STEP 6: CHECK DATA TYPES
+
+Ensure:
+ProductID = Whole Number
+UnitPrice = Decimal Number
+Quantity = Whole Number
+LineTotal = Decimal Number
+
+To change:
+Transform → Data Type
+
+---
+
+## STEP 7: RENAME COLUMNS (IF REQUIRED)
+
+If any column has prefixes like:
+Order_Details.ProductID
+
+Rename to:
+ProductID
+
+To rename:
+Double-click column header
+
+---
+
+## STEP 8: LOAD DATA INTO POWER BI
+
+1. Click:
+   Home → Close & Apply
+
+This loads transformed data into Power BI model.
+
+---
+
+## STEP 9: CREATE RELATIONSHIP
+
+1. Open Model View (Relationship icon on left sidebar)
+2. Drag:
+   Products.ProductID → Orders.ProductID
+
+Relationship:
+One-to-Many
+
+This connects both tables.
+
+---
+
+## STEP 10: BUILD REPORT
+
+1. Open Report View
+
+2. In Visualizations pane:
+   Click Table Visual
+
+3. Add these fields:
+
+From Products:
+ProductName
+UnitsInStock
+
+From Orders:
+Quantity
+LineTotal
+
+## Final table:
+
+## ProductName | UnitsInStock | Quantity | LineTotal
+
+---
+
+## STEP 11: FORMAT REPORT
+
+1. Resize table
+2. Arrange columns
+3. Use Format pane for styling
+
+Optional:
+Add Card Visual for Total Sales:
+Drag LineTotal into Card
+
+---
+
+## STEP 12: SAVE PROJECT
+
+File → Save As
+
+Example:
+ETL_Assignment03.pbix
+
+---
+
+## ETL CONCEPT USED
+
+EXTRACT:
+Imported Products.csv and Orders.csv
+
+TRANSFORM:
+Removed unwanted columns
+Changed data types
+Added LineTotal custom column
+Renamed fields
+
+LOAD:
+Loaded transformed data into Power BI model
+
+---
+
+## EXPECTED OUTPUT
+
+1. Products table loaded
+2. Orders table loaded
+3. Relationship created using ProductID
+4. Report showing:
+   ProductName
+   UnitsInStock
+   Quantity
+   LineTotal
+
+---
+
+## CONCLUSION
+
+Thus, the ETL (Extract, Transform, Load) process was successfully performed using Power BI Desktop by importing source data, transforming it according to requirements, and loading it into a relational model for reporting and analysis.
+
+---
+
+## VIVA QUESTIONS
+
+Q1. What is ETL?
+Answer:
+ETL stands for Extract, Transform, and Load.
+
+Q2. What is Extract?
+Answer:
+Collecting data from source systems.
+
+Q3. What is Transform?
+Answer:
+Cleaning, formatting, and modifying data.
+
+Q4. What is Load?
+Answer:
+Storing transformed data into target system.
+
+Q5. Why use Power BI?
+Answer:
+For data cleaning, modeling, visualization, and reporting.
