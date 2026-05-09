@@ -1,0 +1,61 @@
+# BI6 - Data Clustering using K-Means Clustering Algorithm
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+
+X = np.array([
+    [1, 2],
+    [1.5, 1.8],
+    [5, 8],
+    [8, 8],
+    [1, 0.6],
+    [9, 11],
+    [8, 2],
+    [10, 2],
+    [9, 3]
+])
+
+print("===== DATASET =====")
+print(X)
+
+kmeans = KMeans(
+    n_clusters=3,
+    random_state=0
+)
+
+kmeans.fit(X)
+
+
+labels = kmeans.labels_
+
+print("\n===== CLUSTER LABELS =====")
+print(labels)
+
+centers = kmeans.cluster_centers_
+
+print("\n===== CLUSTER CENTERS =====")
+print(centers)
+
+plt.figure(figsize=(8,5))
+
+plt.scatter(
+    X[:,0],
+    X[:,1],
+    c=labels
+)
+
+plt.scatter(
+    centers[:,0],
+    centers[:,1],
+    marker='X',
+    s=200
+)
+
+plt.title("K-Means Clustering")
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+
+plt.show()
+
+print("\nK-Means Clustering Completed Successfully!")

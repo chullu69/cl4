@@ -1,0 +1,30 @@
+# BI3 - ETL Process to Construct Database in SQL Server
+
+import pandas as pd 
+
+data = pd.read_csv("sale_data.csv")
+
+print("===== ORIGINAL DATASET =====")
+print(data.head())
+
+print("\n===== MISSING VALUES =====")
+print(data.isnull().sum())
+
+data = data.drop_duplicates()
+
+data = data.fillna(data.mean(numeric_only=True))
+
+data.columns = data.columns.str.upper()
+
+print("\n===== TRANSFORMED DATASET =====")
+print(data.head())
+
+print("\n===== DATASET INFORMATION =====")
+data.info()
+
+# Save transformed data into new CSV file
+data.to_csv("transformed_sale_data.csv", index=False)
+
+
+print("\nETL Process Completed Successfully!")
+print("Transformed Data Saved Successfully!")

@@ -1,0 +1,62 @@
+# BI2 - Data Visualization from ETL Process
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv("sale_data.csv")
+
+print("===== FIRST 5 RECORDS =====")
+print(data.head())
+
+print("\n===== MISSING VALUES =====")
+print(data.isnull().sum())
+
+# Fill missing numeric values with mean
+data = data.fillna(data.mean(numeric_only=True))
+
+print("\n===== DATASET INFORMATION =====")
+data.info()
+
+# Bar Chart
+
+plt.figure(figsize=(8,5))
+
+data.groupby('Region')['Sales'].sum().plot(kind='bar')
+
+plt.title("Total Sales by Region")
+plt.xlabel("Region")
+plt.ylabel("Sales")
+
+plt.show()
+
+# Line Chart
+
+plt.figure(figsize=(8,5))
+
+data.groupby('Category')['Profit'].sum().plot(kind='line', marker='o')
+
+plt.title("Profit by Category")
+plt.xlabel("Category")
+plt.ylabel("Profit")
+
+plt.show()
+
+# Pie Chart
+
+plt.figure(figsize=(7,7))
+
+data.groupby('Category')['Sales'].sum().plot(
+    kind='pie',
+    autopct='%1.1f%%'
+)
+
+plt.title("Sales Distribution by Category")
+
+plt.ylabel("")
+
+plt.show()
+
+
+#Successful Message
+
+print("\nData Visualization Completed Successfully!")

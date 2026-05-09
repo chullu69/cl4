@@ -1,0 +1,62 @@
+#4. Mongo DB: Installation and Creation of database and Collection CRUD Document: Insert, Query,
+Update and Delete Document
+
+we need to run these in terminal : 
+
+sudo apt update
+sudo apt install mongodb
+sudo systemctl start mongodb
+sudo systemctl status mongodb
+
+Start : 
+mongosh or mongo
+
+#Create Database
+use StudentDB
+
+#Create Collection + Insert Document
+db.students.insertOne({
+    name: "Anshul",
+    age: 21,
+    branch: "AI&DS"
+})
+
+#View Documents
+db.students.find()
+
+#Insert Multiple Documents
+db.students.insertMany([
+    {
+        name: "Rahul",
+        age: 22,
+        branch: "CSE"
+    },
+    {
+        name: "Sneha",
+        age: 20,
+        branch: "IT"
+    }
+])
+
+#Query Specific Data - Find One
+db.students.findOne({name: "Rahul"})
+
+#Find All AI&DS Students
+db.students.find({branch: "AI&DS"})
+
+#Update Document
+db.students.updateOne(
+    {name: "Anshul"},
+    {$set: {age: 22}}
+)
+
+#Verify Update
+db.students.find()
+
+#Delete Document
+db.students.deleteOne({name: "Rahul"})
+
+#Verify Delete
+db.students.find()
+
+exit

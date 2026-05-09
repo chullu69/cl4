@@ -1,0 +1,275 @@
+#3. Develop a MapReduce program to find the grades of students
+
+#1]Python if Hadoop is not available :
+
+#grade_simulation.py
+
+import sys
+from collections import defaultdict
+
+# Mapper
+def mapper(lines):
+
+    mapped = []
+
+    for line in lines:
+
+        parts = line.strip().split(",")
+
+        if len(parts) == 2:
+
+            student = parts[0].strip()
+
+            marks = float(parts[1].strip())
+
+            mapped.append((student, marks))
+
+    return mapped
+
+
+# Reducer
+def reducer(mapped_data):
+
+    groups = defaultdict(list)
+
+    for student, marks in mapped_data:
+        groups[student].append(marks)
+
+    result = {}
+
+    for student, scores in groups.items():
+
+        avg = sum(scores) / len(scores)
+
+        if avg >= 90:
+            grade = "A"
+
+        elif avg >= 80:
+            grade = "B"
+
+        elif avg >= 70:
+            grade = "C"
+
+        elif avg >= 60:
+            grade = "D"
+
+        else:
+            grade = "F"
+
+        result[student] = (avg, grade)
+
+    return result
+
+
+if __name__ == "__main__":
+
+    if len(sys.argv) > 1:
+
+        with open(sys.argv[1], "r") as f:
+            lines = f.readlines()
+
+    else:
+
+        lines = [
+            "S1,85",
+            "S1,90",
+            "S2,78",
+            "S2,82",
+            "S3,45"
+        ]
+
+    mapped = mapper(lines)
+
+    result = reducer(mapped)
+
+    for student in sorted(result.keys()):
+
+        avg, grade = result[student]
+
+        print(f"{student}\t{avg:.2f}\t{grade}")
+
+#input.txt
+
+S1,85
+S1,90
+S2,78
+S2,82
+S3,45
+
+#To run - python3 grade_simulation.py input.txt
+
+
+//2]In java if Hadoop is installed : 
+
+//GradeMapper.java
+import java.io.IOException;
+
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+
+import org.apache.hadoop.mapred.MapReduceBase;
+import org.apache.hadoop.mapred.Mapper;
+import org.apache.hadoop.mapred.OutputCollector;
+import org.apache.hadoop.mapred.Reporter;
+
+public class GradeMapper extends MapReduceBase
+implements Mapper<LongWritable, Text, Text, IntWritable>
+{
+    public void map(LongWritable key,
+                    Text value,
+                    OutputCollector<Text, IntWritable> output,
+                    Reporter reporter) throws IOException
+    {
+        String line = value.toString().trim();
+
+        String parts[] = line.split(",");
+
+        if(parts.length == 2)
+        {
+            String student = parts[0].trim();
+
+            int marks = Integer.parseInt(parts[1].trim());
+
+            output.collect(new Text(student),
+                           new IntWritable(marks));
+        }
+    }
+}
+
+//GradeReducer.java
+import java.io.IOException;
+import java.util.Iterator;
+
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+
+import org.apache.hadoop.mapred.MapReduceBase;
+import org.apache.hadoop.mapred.OutputCollector;
+import org.apache.hadoop.mapred.Reducer;
+import org.apache.hadoop.mapred.Reporter;
+
+public class GradeReducer extends MapReduceBase
+implements Reducer<Text, IntWritable, Text, Text>
+{
+    public void reduce(Text key,
+                       Iterator<IntWritable> values,
+                       OutputCollector<Text, Text> output,
+                       Reporter reporter) throws IOException
+    {
+        int total = 0;
+        int count = 0;
+
+        while(values.hasNext())
+        {
+            total += values.next().get();
+            count++;
+        }
+
+        double average = (double) total / count;
+
+        String grade;
+
+        if(average >= 90)
+        {
+            grade = "A";
+        }
+        else if(average >= 80)
+        {
+            grade = "B";
+        }
+        else if(average >= 70)
+        {
+            grade = "C";
+        }
+        else if(average >= 60)
+        {
+            grade = "D";
+        }
+        else
+        {
+            grade = "F";
+        }
+
+        output.collect(key, new Text(grade));
+    }
+}
+
+//GradeDriver.java
+import java.io.IOException;
+
+import org.apache.hadoop.conf.Configured;
+
+import org.apache.hadoop.fs.Path;
+
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+
+import org.apache.hadoop.mapred.FileInputFormat;
+import org.apache.hadoop.mapred.FileOutputFormat;
+import org.apache.hadoop.mapred.JobClient;
+import org.apache.hadoop.mapred.JobConf;
+
+import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
+
+public class GradeDriver extends Configured implements Tool
+{
+    public int run(String args[]) throws IOException
+    {
+        if(args.length < 2)
+        {
+            System.out.println("Please provide input and output paths");
+            return -1;
+        }
+
+        JobConf conf = new JobConf(GradeDriver.class);
+
+        conf.setJobName("Student Grade Calculation");
+
+        FileInputFormat.setInputPaths(conf, new Path(args[0]));
+
+        FileOutputFormat.setOutputPath(conf, new Path(args[1]));
+
+        conf.setMapperClass(GradeMapper.class);
+
+        conf.setReducerClass(GradeReducer.class);
+
+        conf.setMapOutputKeyClass(Text.class);
+
+        conf.setMapOutputValueClass(IntWritable.class);
+
+        conf.setOutputKeyClass(Text.class);
+
+        conf.setOutputValueClass(Text.class);
+
+        JobClient.runJob(conf);
+
+        return 0;
+    }
+
+    public static void main(String args[]) throws Exception
+    {
+        int exitCode = ToolRunner.run(new GradeDriver(), args);
+
+        System.exit(exitCode);
+    }
+}
+
+//input.txt
+S1,85
+S1,90
+S2,78
+S2,82
+S3,45
+
+//To run :
+//first step : Start Hadoop - start-dfs.sh
+                              start-yarn.sh
+//second step : Create classes - mkdir classes  
+                                 javac -classpath `hadoop classpath` -d classes GradeMapper.java GradeReducer.java GradeDriver.java
+//third step : Create jar - jar -cvf grades.jar -C classes/ .
+                            hdfs dfs -mkdir /gradesinput
+//fourth step : upload input file & run - hdfs dfs -put input.txt /gradesinput
+                                          hadoop jar grades.jar GradeDriver /gradesinput /gradesoutput
+                                          hdfs dfs -cat /gradesoutput/part-00000                                 

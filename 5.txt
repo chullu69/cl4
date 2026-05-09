@@ -1,0 +1,25 @@
+#BI1 - Import Data from Different Sources and Load into Target System
+
+import pandas as pd
+
+data = pd.read_csv("sale_data.csv")
+
+print("===== FIRST 5 RECORDS =====")
+print(data.head())
+
+print("\n===== DATASET INFORMATION =====")
+print(data.info())
+
+print("\n===== COLUMN NAMES =====")
+print(data.columns)
+
+print("\n===== SUMMARY STATISTICS =====")
+print(data.describe())
+
+print("\n===== MISSING VALUES =====")
+print(data.isnull().sum())
+
+print("\n===== DATASET SHAPE =====")
+print(data.shape)
+
+print("\nData Imported Successfully!")

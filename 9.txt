@@ -1,0 +1,47 @@
+#BI5 - Data Classification using Decision Tree Classification Algorithm
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report
+
+data = {
+    'Hours_Studied': [1, 2, 3, 4, 5, 6, 7, 8],
+    'Attendance': [50, 60, 65, 70, 75, 80, 90, 95],
+    'Result': ['Fail', 'Fail', 'Fail', 'Pass', 'Pass', 'Pass', 'Pass', 'Pass']
+}
+
+df = pd.DataFrame(data)
+
+print("===== DATASET =====")
+print(df)
+
+X = df[['Hours_Studied', 'Attendance']]
+
+y = df['Result']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.25,
+    random_state=42
+)
+
+model = DecisionTreeClassifier()
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+print("\n===== PREDICTED RESULTS =====")
+print(y_pred)
+
+accuracy = accuracy_score(y_test, y_pred)
+
+print("\nAccuracy:", accuracy)
+
+print("\n===== CLASSIFICATION REPORT =====")
+
+print(classification_report(y_test, y_pred))
+
+print("\nData Classification Completed Successfully!")

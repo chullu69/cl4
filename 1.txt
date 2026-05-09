@@ -1,0 +1,241 @@
+#1. Set up and Configuration of Hadoop Using CloudEra/ Google Cloud BigQuery. Databricks Lakehouse
+Platform. Snowflake, Amazon Redshift
+
+======================================================================
+CL-4 ASSIGNMENT 1 – PRACTICAL EXECUTION GUIDE
+Setup and Configuration of Hadoop, BigQuery, Databricks, Snowflake,
+Amazon Redshift
+======================================================================
+
+WHAT YOU WILL ACTUALLY DO:
+ - For each platform you will create an account (or use a pre‑built VM),
+   perform basic configuration, load or query sample data, and take
+   screenshots to prove it works.
+ - Because this is a cloud‑based practical, the focus is on configuration
+   and running a simple test, not on building a production cluster.
+ - You can run this entirely from your laptop (Windows/Linux).
+
+======================================================================
+PART 1 – HADOOP USING CLOUDERA
+======================================================================
+Option A (Recommended for lab PC): Use Cloudera QuickStart VM
+  1. Download Oracle VirtualBox (free) and install it.
+  2. Download the Cloudera QuickStart VM for VirtualBox from Cloudera’s website 
+     (approx 8 GB). It contains a full Hadoop cluster pre‑configured with 
+     Cloudera Manager.
+  3. Import the VM into VirtualBox and start it.
+  4. Once booted, open the terminal inside the VM.
+  5. Run basic HDFS commands:
+        hdfs dfs -ls /
+        hdfs dfs -mkdir /user/student
+        hdfs dfs -put /home/cloudera/sample.txt /user/student
+        hdfs dfs -cat /user/student/sample.txt
+  6. Check Cloudera Manager UI (http://localhost:7180) – log in with 
+     admin/admin and explore the cluster.
+  7. Take screenshots of:
+        - HDFS directory listing
+        - Cloudera Manager home page
+        - A successful MapReduce job (e.g., `hadoop jar ... pi`)
+
+Option B (Lightweight): Hadoop Standalone (without Cloudera)
+  1. Install Hadoop in standalone mode (refer to your earlier MapReduce 
+     practical guide – it’s the same Hadoop installation without YARN).
+  2. Configure core-site.xml to point to local file system (fs.defaultFS 
+     = file:///)
+  3. Run a sample WordCount MapReduce job locally or just practice HDFS 
+     commands with local files.
+  4. For Cloudera aspect, explain that Cloudera Manager provides the same 
+     management interface and you used the standalone setup to understand 
+     configuration files.
+
+WHAT TO SUBMIT:
+  - Screenshot of HDFS directory listing.
+  - Screenshot of Cloudera Manager UI.
+  - Explanation of key configuration parameters (core-site.xml, hdfs-site.xml).
+
+======================================================================
+PART 2 – GOOGLE CLOUD BIGQUERY
+======================================================================
+Free – No credit card required (BigQuery Sandbox)
+
+Steps:
+  1. Go to https://console.cloud.google.com/ and sign in with your Google 
+     account.
+  2. Create a new project (e.g., "CL4-BigQuery-Demo").
+  3. In the Navigation menu, go to BigQuery. The BigQuery Sandbox will 
+     activate automatically (you may see a banner "Sandbox mode").
+  4. Click on the project name → Create Dataset:
+       Dataset ID: my_dataset
+       Data location: us (multiple regions)
+       Leave other settings default.
+  5. Inside the dataset, click "Create Table":
+       Source: Empty table
+       Table name: student_records
+       Add Schema fields:
+           student_id   INTEGER
+           name         STRING
+           marks        INTEGER
+  6. Fill the table with sample data:
+       Click "student_records" table → "Query" → Compose new query:
+       
+       INSERT INTO my_dataset.student_records VALUES
+       (1, 'Alice', 85),
+       (2, 'Bob', 92),
+       (3, 'Charlie', 78);
+       
+  7. Run a query:
+       SELECT name, marks FROM my_dataset.student_records WHERE marks > 80;
+       
+  8. Explore a public dataset:
+       In the Explorer pane, click "+ ADD DATA" → "Pin a project" → enter 
+       project name "bigquery-public-data".
+       Browse e.g., "usa_names" and run:
+         SELECT name, gender, SUM(number) AS total
+         FROM `bigquery-public-data.usa_names.usa_1910_2013`
+         GROUP BY name, gender
+         ORDER BY total DESC
+         LIMIT 10;
+         
+WHAT TO SUBMIT:
+  - Screenshot of BigQuery Console showing the dataset and table.
+  - Screenshot of query results (your INSERT and SELECT).
+  - Explanation of how BigQuery differs from traditional databases 
+    (serverless, managed storage, etc.)
+
+======================================================================
+PART 3 – DATABRICKS LAKEHOUSE PLATFORM
+======================================================================
+Free – No credit card (Databricks Free Edition)
+
+Steps:
+  1. Go to https://databricks.com/try-databricks and choose the Free Edition 
+     (Community Edition). Sign up with your email.
+  2. After login, you land in the workspace. The Free Edition comes with an 
+     automatic cluster.
+  3. Create a new Notebook:
+       Workspace → your home folder → Create → Notebook
+       Name: "CL4_Data_Exploration"
+       Default language: Python
+  4. In the first cell, run a simple data analysis:
+       # Create a DataFrame from sample data
+       data = [(1, "Alice", 85), (2, "Bob", 92), (3, "Charlie", 78)]
+       df = spark.createDataFrame(data, ["student_id", "name", "marks"])
+       df.show()
+       # Calculate average marks
+       df.selectExpr("avg(marks) as avg_marks").show()
+  5. Practice reading a CSV file from DBFS:
+       Upload a small CSV file (e.g., sample.csv) by going to Data → Browse 
+       DBFS → Upload.
+       Then read it:
+         df_csv = spark.read.csv("dbfs:/FileStore/tables/sample.csv", header=True, inferSchema=True)
+         df_csv.printSchema()
+  6. Run an SQL query on the DataFrame:
+       df.createOrReplaceTempView("students")
+       sql("SELECT name, marks FROM students WHERE marks > 80").show()
+
+WHAT TO SUBMIT:
+  - Screenshot of the workspace with the notebook.
+  - Screenshot of the job’s output (DataFrame showing data).
+  - Brief explanation of what a Lakehouse is (combines data lake and warehouse 
+    using Delta Lake).
+
+======================================================================
+PART 4 – SNOWFLAKE
+======================================================================
+Free – No credit card required for the 30‑day trial
+
+Steps:
+  1. Go to https://signup.snowflake.com and sign up for a free trial.
+     Choose Snowflake Edition "Standard", cloud provider "AWS", region 
+     nearest to you.
+  2. Activate your account via email and log in to the Snowflake web UI 
+     (classic console or Snowsight).
+  3. Create a virtual warehouse:
+       Worksheets → New SQL Worksheet → Execute:
+       CREATE WAREHOUSE my_wh WITH WAREHOUSE_SIZE='XSMALL' AUTO_SUSPEND=300;
+       USE WAREHOUSE my_wh;
+  4. Create a database and schema:
+       CREATE DATABASE student_db;
+       CREATE SCHEMA student_db.student_schema;
+  5. Create a table and load sample data:
+       USE DATABASE student_db;
+       USE SCHEMA student_schema;
+       CREATE TABLE student_records (
+           student_id INT,
+           name STRING,
+           marks INT
+       );
+       INSERT INTO student_records VALUES 
+         (1, 'Alice', 85), (2, 'Bob', 92), (3, 'Charlie', 78);
+  6. Query the table:
+       SELECT * FROM student_records;
+       SELECT AVG(marks) AS average_marks FROM student_records;
+  7. Explore Time Travel (unique Snowflake feature):
+       SELECT * FROM student_records AT (OFFSET => -60);
+
+WHAT TO SUBMIT:
+  - Screenshot of the Snowflake web UI showing the database and table.
+  - Screenshot of query results (including average marks).
+  - Explanation of compute/storage separation and how it helps scalability.
+
+======================================================================
+PART 5 – AMAZON REDSHIFT
+======================================================================
+Free tier available – Requires AWS account (credit card for verification,
+but you won't be charged if you stay within free limits)
+
+Steps:
+  1. If you do not have an AWS account, create one at https://aws.amazon.com/.
+     You will need to provide a credit card for verification, but all 
+     activities in this guide use the free tier.
+  2. After login, go to the AWS Management Console → Services → Amazon 
+     Redshift.
+  3. Click "Create cluster". Choose:
+       Cluster type: Single Node (dc2.large, 1 node) – this stays within free tier.
+       Cluster identifier: my-redshift-cluster
+       Master user name: admin
+       Master password: (set a strong password)
+       Permissions: Create new IAM role with S3 read only (or default).
+       Network settings: use default VPC and make cluster publicly accessible 
+       (yes, for testing).
+       Database port: 5439
+       Click "Create cluster".
+  4. The cluster takes a few minutes to be available. Once status is "Available",
+     go to the Redshift Query Editor v2 (a button in the top right).
+  5. In Query Editor, connect using the cluster endpoint and master credentials.
+  6. Create a sample table and load data:
+       CREATE TABLE student_records (
+           student_id INT,
+           name VARCHAR(50),
+           marks INT
+       );
+       INSERT INTO student_records VALUES 
+         (1, 'Alice', 85), (2, 'Bob', 92), (3, 'Charlie', 78);
+  7. Run a query:
+       SELECT * FROM student_records WHERE marks > 80;
+  8. Optionally, load data from S3 using the COPY command:
+       First create a bucket and upload a CSV, then:
+       COPY student_records FROM 's3://your-bucket/data.csv' 
+       IAM_ROLE 'arn:aws:iam::...' CSV;
+       
+  9. After finishing, STOP the cluster to avoid charges (you can stop a 
+     single-node cluster from the console).
+
+WHAT TO SUBMIT:
+  - Screenshot of the Redshift cluster configuration (showing node type, status).
+  - Screenshot of Query Editor with the query results.
+  - Explanation of Redshift's MPP architecture and columnar storage.
+
+======================================================================
+KEY POINTS FOR VIVA / ORAL QUESTIONS
+======================================================================
+- Advantages of Cloudera: centralised management, easy deployment.
+- BigQuery: serverless, pay per query scanned, no indexing required.
+- Databricks: combines data lake + warehouse, Delta Lake provides ACID.
+- Snowflake: compute‑storage separation, zero‑copy cloning, Time Travel.
+- Redshift: MPP, columnar, integrates with other AWS services.
+- Security aspects: IAM, encryption at rest & in transit, network isolation.
+
+======================================================================
+END OF EXECUTION GUIDE
+======================================================================

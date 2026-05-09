@@ -1,0 +1,81 @@
+# BI4 - Data Analysis and Visualization using Advanced Excel
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = {
+    'Month': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    'TVs': [145, 150, 170, 180, 175, 160],
+    'Mobile Phones': [335, 350, 360, 390, 410, 405],
+    'Laptops': [82, 90, 95, 100, 98, 105]
+}
+
+df = pd.DataFrame(data)
+
+print("===== DATASET =====")
+print(df)
+
+#Bar Chart
+plt.figure(figsize=(8,5))
+
+df.plot(
+    x='Month',
+    y=['TVs', 'Mobile Phones', 'Laptops'],
+    kind='bar'
+)
+
+plt.title("Product Sales by Month")
+plt.xlabel("Month")
+plt.ylabel("Units Sold")
+
+plt.show()
+
+#Line Chart
+plt.figure(figsize=(8,5))
+
+df.plot(
+    x='Month',
+    y=['TVs', 'Mobile Phones', 'Laptops'],
+    kind='line',
+    marker='o'
+)
+
+plt.title("Monthly Sales Trend")
+plt.xlabel("Month")
+plt.ylabel("Units Sold")
+
+plt.show()
+
+#Pie Chart
+total_sales = [
+    df['TVs'].sum(),
+    df['Mobile Phones'].sum(),
+    df['Laptops'].sum()
+]
+
+labels = ['TVs', 'Mobile Phones', 'Laptops']
+
+plt.figure(figsize=(7,7))
+
+plt.pie(
+    total_sales,
+    labels=labels,
+    autopct='%1.1f%%'
+)
+
+plt.title("Total Sales Distribution")
+
+plt.show()
+
+#Scatter plot
+plt.figure(figsize=(8,5))
+
+plt.scatter(df['TVs'], df['Laptops'])
+
+plt.title("TVs vs Laptops Sales")
+plt.xlabel("TV Sales")
+plt.ylabel("Laptop Sales")
+
+plt.show()
+
+print("\nData Visualization Completed Successfully!")
